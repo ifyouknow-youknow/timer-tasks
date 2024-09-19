@@ -1,0 +1,41 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "iic-development",
+          "appId": "1:264501829712:android:c6b45292987a32cefb7155",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "iic-development",
+          "appId": "1:264501829712:ios:21b411bc5b51db27fb7155",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "iic-development",
+          "appId": "1:264501829712:ios:0ec715494c54f7b1fb7155",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "iic-development",
+          "configurations": {
+            "android": "1:264501829712:android:c6b45292987a32cefb7155",
+            "ios": "1:264501829712:ios:21b411bc5b51db27fb7155",
+            "macos": "1:264501829712:ios:0ec715494c54f7b1fb7155",
+            "web": "1:264501829712:web:7f576b0bc4a76d76fb7155",
+            "windows": "1:264501829712:web:7f576b0bc4a76d76fb7155"
+          }
+        }
+      }
+    }
+  }
+}
