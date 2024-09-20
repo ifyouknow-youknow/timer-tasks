@@ -272,46 +272,50 @@ class _TaskTimerState extends State<TaskTimer> with WidgetsBindingObserver {
       SizedBox(
         height: 10,
       ),
-      Positioned.fill(
-          child: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
+      Expanded(
+        child: SingleChildScrollView(
           child: PaddingView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextView(
-                  text: 'Task',
-                  size: 18,
-                  weight: FontWeight.w500,
-                  color: Colors.black45,
-                ),
-                TextView(
-                  text: widget.task['task'],
-                  size: 26,
-                  weight: FontWeight.w500,
-                  wrap: true,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                TextView(
-                  text: 'Details',
-                  size: 18,
-                  weight: FontWeight.w500,
-                  color: Colors.black45,
-                ),
-                TextView(
-                  text: widget.task['details'].replaceAll('jjj', '\n'),
-                  size: 18,
-                  weight: FontWeight.w500,
-                  wrap: true,
-                ),
-              ],
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextView(
+                    text: 'Task',
+                    size: 18,
+                    weight: FontWeight.w500,
+                    color: Colors.black45,
+                  ),
+                  TextView(
+                    text: widget.task['task'],
+                    size: 26,
+                    weight: FontWeight.w500,
+                    wrap: true,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextView(
+                    text: 'Details',
+                    size: 18,
+                    weight: FontWeight.w500,
+                    color: Colors.black45,
+                  ),
+                  TextView(
+                    text: widget.task['details'].replaceAll('jjj', '\n'),
+                    size: 18,
+                    weight: FontWeight.w500,
+                    wrap: true,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
             ),
           ),
         ),
-      ))
+      )
     ]);
   }
 }

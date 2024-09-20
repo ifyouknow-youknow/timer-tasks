@@ -149,15 +149,16 @@ class _GroupsState extends State<Groups> {
                                 },
                               ),
                               ButtonView(
-                                  child: TextView(
-                                    text: 'create',
-                                    size: 18,
-                                    weight: FontWeight.w500,
-                                    color: hexToColor("#3490F3"),
-                                  ),
-                                  onPress: () {
-                                    onCreateGroup();
-                                  })
+                                child: TextView(
+                                  text: 'create',
+                                  size: 18,
+                                  weight: FontWeight.w500,
+                                  color: hexToColor("#3490F3"),
+                                ),
+                                onPress: () {
+                                  onCreateGroup();
+                                },
+                              )
                             ],
                           )
                         ],
@@ -169,68 +170,70 @@ class _GroupsState extends State<Groups> {
           ),
         ),
       ),
-      //  MAIN
-      PaddingView(
-        child: Positioned.fill(
-          child: SingleChildScrollView(
-              child: FutureView(
-                  future: _fetchGroups(),
-                  childBuilder: (groups) {
-                    return GridView.count(
-                      padding: EdgeInsets.all(0),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      shrinkWrap:
-                          true, // Allow the grid to take the minimum required height
-                      physics:
-                          NeverScrollableScrollPhysics(), // Disable scrolling inside the grid
+      // MAIN
+      Expanded(
+        child: FutureView(
+          future: _fetchGroups(),
+          childBuilder: (groups) {
+            return PaddingView(
+              child: GridView.builder(
+                padding: EdgeInsets.all(0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: groups.length,
+                itemBuilder: (context, index) {
+                  final group = groups[index];
+                  return ButtonView(
+                    onPress: () {
+                      nav_Push(
+                        context,
+                        GroupTasks(
+                          dm: widget.dm,
+                          groupId: group['id'],
+                          groupName: group['name'],
+                        ),
+                        () {
+                          setState(() {});
+                        },
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (var group in groups)
-                          ButtonView(
-                            onPress: () {
-                              nav_Push(
-                                  context,
-                                  GroupTasks(
-                                    dm: widget.dm,
-                                    groupId: group['id'],
-                                    groupName: group['name'],
-                                  ), () {
-                                setState(() {});
-                              });
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ImageView(
-                                  radius: 10,
-                                  imagePath: 'assets/folder.png',
-                                  objectFit: BoxFit.cover,
-                                  width: double.infinity,
-                                  height: getWidth(context) * 0.3,
-                                ),
-                                SizedBox(
-                                  height: 4,
-                                ),
-                                TextView(
-                                  text: group['name'],
-                                  size: 18,
-                                  weight: FontWeight.w600,
-                                  wrap: true,
-                                ),
-                              ],
-                            ),
-                          )
+                        ImageView(
+                          radius: 10,
+                          imagePath: 'assets/folder.png',
+                          objectFit: BoxFit.cover,
+                          width: double.infinity,
+                          height: getWidth(context) * 0.3,
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        TextView(
+                          text: group['name'],
+                          size: 18,
+                          weight: FontWeight.w600,
+                          wrap: true,
+                        ),
                       ],
-                    );
-                  },
-                  emptyWidget: Center(
-                    child: TextView(
-                      text: 'No task groups yet.',
                     ),
-                  ))),
+                  );
+                },
+              ),
+            );
+          },
+          emptyWidget: Center(
+            child: TextView(
+              text: 'No task groups yet.',
+            ),
+          ),
         ),
-      )
+      ),
     ]);
   }
 }

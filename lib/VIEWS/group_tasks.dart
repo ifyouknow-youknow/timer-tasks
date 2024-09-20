@@ -262,110 +262,105 @@ class _GroupTasksState extends State<GroupTasks> {
       ),
 
       //
-      Positioned.fill(
-        child: SingleChildScrollView(
-          child: FutureView(
-            future: _fetchTasks(),
-            childBuilder: (tasks) {
-              return Column(
-                children: [
-                  for (var task in tasks)
-                    ButtonView(
-                      onPress: () {
-                        if (task['duration'] != 0) {
-                          nav_Push(
-                              context, TaskTimer(dm: widget.dm, task: task),
-                              () {
-                            setState(() {});
-                          });
-                        }
-                      },
-                      child: BorderView(
-                        bottom: true,
-                        bottomColor: Colors.black26,
-                        child: PaddingView(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CheckboxView(
-                                  fillColor: hexToColor("#FF1F54"),
-                                  width: 32,
-                                  height: 32,
-                                  defaultValue: task['status'],
-                                  onChange: (value) {
-                                    onCheck(task['id'], value);
-                                  }),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              SizedBox(
-                                width: getWidth(context) * 0.85,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextView(
-                                      text: task['task'],
-                                      size: 18,
-                                      weight: FontWeight.w600,
-                                      wrap: true,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        if (task['duration'] > 0)
-                                          TextView(
-                                            text:
-                                                '${task['duration'].toString()} minutes',
-                                            color: hexToColor("#3490F3"),
-                                            size: 15,
-                                            weight: FontWeight.w500,
-                                          )
-                                        else
-                                          TextView(
-                                            text: task['details']
-                                                .replaceAll('jjj', '\n'),
+      FutureView(
+        future: _fetchTasks(),
+        childBuilder: (tasks) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                for (var task in tasks)
+                  ButtonView(
+                    onPress: () {
+                      if (task['duration'] != 0) {
+                        nav_Push(context, TaskTimer(dm: widget.dm, task: task),
+                            () {
+                          setState(() {});
+                        });
+                      }
+                    },
+                    child: BorderView(
+                      bottom: true,
+                      bottomColor: Colors.black26,
+                      child: PaddingView(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CheckboxView(
+                                fillColor: hexToColor("#FF1F54"),
+                                width: 32,
+                                height: 32,
+                                defaultValue: task['status'],
+                                onChange: (value) {
+                                  onCheck(task['id'], value);
+                                }),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            SizedBox(
+                              width: getWidth(context) * 0.85,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextView(
+                                    text: task['task'],
+                                    size: 18,
+                                    weight: FontWeight.w600,
+                                    wrap: true,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      if (task['duration'] > 0)
+                                        TextView(
+                                          text:
+                                              '${task['duration'].toString()} minutes',
+                                          color: hexToColor("#3490F3"),
+                                          size: 15,
+                                          weight: FontWeight.w500,
+                                        )
+                                      else
+                                        TextView(
+                                          text: task['details']
+                                              .replaceAll('jjj', '\n'),
+                                        ),
+                                      ButtonView(
+                                          child: Icon(
+                                            Icons.delete_sweep_outlined,
+                                            size: 32,
+                                            color: hexToColor("#FF1F54"),
                                           ),
-                                        ButtonView(
-                                            child: Icon(
-                                              Icons.delete_sweep_outlined,
-                                              size: 32,
-                                              color: hexToColor("#FF1F54"),
-                                            ),
-                                            onPress: () {
-                                              onRemoveTask(task['id']);
-                                            })
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                          onPress: () {
+                                            onRemoveTask(task['id']);
+                                          })
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                ],
-              );
-            },
-            emptyWidget: Expanded(
-              child: Center(
-                child: PaddingView(
-                  child: Column(
-                    children: [
-                      ImageView(
-                        imagePath: 'assets/graphics1.png',
-                        width: getWidth(context) * 0.7,
-                        height: getWidth(context) * 0.7,
-                      ),
-                      TextView(
-                        text: 'no tasks yet.',
-                        size: 16,
-                      )
-                    ],
-                  ),
+                    ),
+                  )
+              ],
+            ),
+          );
+        },
+        emptyWidget: Center(
+          child: PaddingView(
+            child: Column(
+              children: [
+                ImageView(
+                  imagePath: 'assets/graphics1.png',
+                  width: getWidth(context) * 0.7,
+                  height: getWidth(context) * 0.7,
                 ),
-              ),
+                TextView(
+                  text: 'no tasks yet.',
+                  size: 16,
+                )
+              ],
             ),
           ),
         ),
